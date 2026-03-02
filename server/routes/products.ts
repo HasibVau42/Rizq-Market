@@ -1,11 +1,12 @@
 import express from "express";
-import { adminDb } from "../lib/firebaseAdmin.js";
+import { getAdminDb } from "../lib/firebaseAdmin.js";
 
 const router = express.Router();
 
 // Get all products
 router.get("/", async (req, res) => {
   try {
+    const adminDb = getAdminDb();
     const snapshot = await adminDb.collection("products").get();
     const products = snapshot.docs.map(doc => ({ _id: doc.id, ...doc.data() }));
     res.json(products);
@@ -17,6 +18,7 @@ router.get("/", async (req, res) => {
 // Get single product
 router.get("/:id", async (req, res) => {
   try {
+    const adminDb = getAdminDb();
     const doc = await adminDb.collection("products").doc(req.params.id).get();
     if (doc.exists) {
       res.json({ _id: doc.id, ...doc.data() });
@@ -31,6 +33,7 @@ router.get("/:id", async (req, res) => {
 // Create product
 router.post("/", async (req, res) => {
   try {
+    const adminDb = getAdminDb();
     const productData = req.body;
     const docRef = await adminDb.collection("products").add({
       ...productData,

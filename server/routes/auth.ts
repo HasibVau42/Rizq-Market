@@ -1,10 +1,11 @@
 import express from "express";
-import { adminAuth, adminDb } from "../lib/firebaseAdmin.js";
+import { getAdminAuth, getAdminDb } from "../lib/firebaseAdmin.js";
 
 const router = express.Router();
 
 router.post("/sync-user", async (req, res) => {
   try {
+    const adminDb = getAdminDb();
     const { uid, email, name } = req.body;
     
     const userRef = adminDb.collection("users").doc(uid);

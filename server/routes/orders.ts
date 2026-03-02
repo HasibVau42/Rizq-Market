@@ -1,11 +1,12 @@
 import express from "express";
-import { adminDb } from "../lib/firebaseAdmin.js";
+import { getAdminDb } from "../lib/firebaseAdmin.js";
 import admin from "firebase-admin";
 
 const router = express.Router();
 
 router.post("/", async (req, res) => {
   try {
+    const adminDb = getAdminDb();
     const { orderItems, shippingAddress, paymentMethod, paymentDetails, totalPrice, userId } = req.body;
 
     if (orderItems && orderItems.length === 0) {
@@ -46,6 +47,7 @@ router.post("/", async (req, res) => {
 // Get all orders (Admin)
 router.get("/all", async (req, res) => {
   try {
+    const adminDb = getAdminDb();
     const snapshot = await adminDb.collection("orders")
       .orderBy("createdAt", "desc")
       .get();
@@ -59,6 +61,7 @@ router.get("/all", async (req, res) => {
 // Update order status (Admin)
 router.put("/:id/status", async (req, res) => {
   try {
+    const adminDb = getAdminDb();
     const { status } = req.body;
     await adminDb.collection("orders").doc(req.params.id).update({ status });
     res.json({ message: "Order status updated" });
@@ -69,6 +72,7 @@ router.put("/:id/status", async (req, res) => {
 
 router.get("/myorders/:userId", async (req, res) => {
   try {
+    const adminDb = getAdminDb();
     const snapshot = await adminDb.collection("orders")
       .where("user", "==", req.params.userId)
       .orderBy("createdAt", "desc")

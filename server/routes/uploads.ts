@@ -1,6 +1,6 @@
 import express from "express";
 import multer from "multer";
-import { adminStorage } from "../lib/firebaseAdmin.js";
+import { getAdminStorage } from "../lib/firebaseAdmin.js";
 import { v4 as uuidv4 } from "uuid";
 
 const router = express.Router();
@@ -8,6 +8,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 
 router.post("/", upload.array("images", 5), async (req: any, res) => {
   try {
+    const adminStorage = getAdminStorage();
     const files = req.files as any[];
     const urls = [];
 
