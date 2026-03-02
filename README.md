@@ -18,6 +18,14 @@ By default, all new users are assigned the `user` role. You must manually change
 6. Change the `role` field from `"user"` to `"admin"`.
 7. Save the changes.
 
+## 4. Setup Firebase Admin (Server-side)
+To enable order management and product updates, you must provide your Firebase Service Account:
+1. In the Firebase Console, go to **Project Settings** > **Service Accounts**.
+2. Click **Generate new private key**.
+3. Open the downloaded JSON file and copy its entire content.
+4. In this editor, open the **Secrets** panel.
+5. Paste the JSON into the `FIREBASE_SERVICE_ACCOUNT` variable.
+
 ## 3. Access the Admin Dashboard
 Once your role is updated:
 1. Log in to the website if you aren't already.
