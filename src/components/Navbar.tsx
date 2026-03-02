@@ -89,8 +89,10 @@ export default function Navbar() {
           <Link to="/categories" className="block text-emerald-800 font-medium py-2">Categories</Link>
           {user ? (
             <>
-              <Link to="/dashboard" className="block text-emerald-800 font-medium py-2">My Account</Link>
-              <button onClick={logout} className="block text-red-600 font-medium py-2">Logout</button>
+              <Link to={user.role === 'admin' ? '/admin' : '/dashboard'} className="block text-emerald-800 font-medium py-2">
+                {user.role === 'admin' ? 'Admin Dashboard' : 'My Account'}
+              </Link>
+              <button onClick={logout} className="block text-red-600 font-medium py-2 text-left w-full">Logout</button>
             </>
           ) : (
             <Link to="/login" className="block bg-emerald-600 text-white text-center py-3 rounded-xl font-medium">Login</Link>

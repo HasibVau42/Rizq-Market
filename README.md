@@ -1,20 +1,29 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Rizq Market - Admin Login Instructions
 
-# Run and deploy your AI Studio app
+To access the Admin Dashboard and manage products and orders, follow these steps:
 
-This contains everything you need to run your app locally.
+## 1. Create a Regular User Account
+First, register a new account on the website:
+1. Go to the **Register** page (`/register`).
+2. Fill in your name, email, and password.
+3. Click **Create Account**.
 
-View your app in AI Studio: https://ai.studio/apps/334a999c-c0fa-475f-9de3-24746349d926
+## 2. Assign Admin Role in Firestore
+By default, all new users are assigned the `user` role. You must manually change this to `admin` in your Firebase project:
+1. Open the [Firebase Console](https://console.firebase.google.com/).
+2. Select your project (**rizq-market**).
+3. Go to **Firestore Database** in the left sidebar.
+4. Locate the `users` collection.
+5. Find the document corresponding to your user account (you can identify it by the `email` field).
+6. Change the `role` field from `"user"` to `"admin"`.
+7. Save the changes.
 
-## Run Locally
+## 3. Access the Admin Dashboard
+Once your role is updated:
+1. Log in to the website if you aren't already.
+2. Navigate to the **Admin Dashboard** by visiting the `/admin` URL directly in your browser.
+3. You will now see the management interface for Products and Orders.
 
-**Prerequisites:**  Node.js
+---
 
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+**Note:** If you try to access `/admin` without the `admin` role, you will see an "Access Denied" message.
